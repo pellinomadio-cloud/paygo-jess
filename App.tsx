@@ -868,7 +868,7 @@ const UpgradeAccountPage: React.FC = () => {
   const [copying, setCopying] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText('9300676215');
+    navigator.clipboard.writeText('1616209188');
     setCopying(true);
     setTimeout(() => setCopying(false), 2000);
   };
@@ -1022,7 +1022,7 @@ const UpgradeAccountPage: React.FC = () => {
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Account Number</span>
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm font-black text-purple-900 dark:text-purple-100 select-all">9300676215</span>
+                  <span className="text-sm font-black text-purple-900 dark:text-purple-100 select-all">1616209188</span>
                   <button 
                     onClick={handleCopy}
                     className="w-6 h-6 flex items-center justify-center rounded-md bg-purple-100 text-purple-600 hover:bg-purple-200 transition-colors"
@@ -1033,7 +1033,7 @@ const UpgradeAccountPage: React.FC = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Bank Name</span>
-                <span className="text-sm font-black text-purple-900 dark:text-purple-100 uppercase text-right leading-tight">BRANCH INTERNATIONAL FINANCE COMPANY</span>
+                <span className="text-sm font-black text-purple-900 dark:text-purple-100 uppercase text-right leading-tight">Paga</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Account Name</span>
@@ -1172,7 +1172,7 @@ const BuyPayIdPage: React.FC = () => {
   const [copying, setCopying] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText('9300676215');
+    navigator.clipboard.writeText('1616209188');
     setCopying(true);
     setTimeout(() => setCopying(false), 2000);
   };
@@ -1318,7 +1318,7 @@ const BuyPayIdPage: React.FC = () => {
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Account Number</span>
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm font-black text-purple-900 dark:text-purple-100 select-all">9300676215</span>
+                  <span className="text-sm font-black text-purple-900 dark:text-purple-100 select-all">1616209188</span>
                   <button 
                     onClick={handleCopy}
                     className="w-6 h-6 flex items-center justify-center rounded-md bg-purple-100 text-purple-600 hover:bg-purple-200 transition-colors"
@@ -1329,7 +1329,7 @@ const BuyPayIdPage: React.FC = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Bank Name</span>
-                <span className="text-sm font-black text-purple-900 dark:text-purple-100 uppercase text-right leading-tight">BRANCH INTERNATIONAL FINANCE COMPANY</span>
+                <span className="text-sm font-black text-purple-900 dark:text-purple-100 uppercase text-right leading-tight">Paga</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Account Name</span>
