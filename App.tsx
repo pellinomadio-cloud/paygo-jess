@@ -553,6 +553,167 @@ const WatchPage: React.FC = () => {
   );
 };
 
+const TasksPage: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email || "";
+  const name = location.state?.name || "User";
+  
+  const [wallet, setWallet] = useState<UserWallet>(() => getWallet(email));
+  const [hasJoined, setHasJoined] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [claiming, setClaiming] = useState(false);
+  const [claimed, setClaimed] = useState(() => {
+    return localStorage.getItem(`paygo_telegram_task_claimed_${email}`) === 'true';
+  });
+
+  const handleJoinChannel = () => {
+    window.open("https://t.me/chix9jacom", "_blank");
+    setVerifying(true);
+    setTimeout(() => {
+      setVerifying(false);
+      setHasJoined(true);
+    }, 2500);
+  };
+
+  const handleClaimReward = () => {
+    if (!hasJoined || claimed) return;
+    setClaiming(true);
+
+    setTimeout(() => {
+      const reward = 70000;
+      const newWallet: UserWallet = {
+        balance: wallet.balance + reward,
+        transactions: [
+          {
+            id: `task-telegram-${Date.now()}`,
+            type: 'Credit',
+            label: 'Telegram Task Bonus (@chix9jacom)',
+            amount: reward,
+            date: new Date().toLocaleDateString()
+          },
+          ...wallet.transactions
+        ]
+      };
+      updateWallet(email, newWallet);
+      setWallet(newWallet);
+      localStorage.setItem(`paygo_telegram_task_claimed_${email}`, 'true');
+      setClaimed(true);
+      setClaiming(false);
+    }, 1200);
+  };
+
+  return (
+    <div className="w-full animate-in fade-in duration-500 pb-20 dark:text-white">
+      <div className="flex items-center bg-purple-600 text-white p-3 -mx-8 -mt-8 mb-6 sticky top-0 z-10 shadow-md">
+        <button onClick={() => navigate(-1)} className="mr-3 p-1 hover:bg-purple-700 rounded-full transition-colors">
+          <i className="fas fa-arrow-left text-lg"></i>
+        </button>
+        <h1 className="text-lg font-bold">Daily Tasks & Rewards</h1>
+      </div>
+
+      <div className="bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-800 rounded-3xl p-6 text-white mb-6 shadow-xl relative overflow-hidden">
+        <div className="absolute -right-6 -bottom-6 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl"></div>
+        <div className="relative z-10">
+          <span className="bg-amber-400 text-black text-[10px] font-black uppercase px-2.5 py-1 rounded-full tracking-wider">
+            EXCLUSIVE TASK
+          </span>
+          <h2 className="text-2xl font-black mt-3 mb-1">Complete Task & Earn</h2>
+          <p className="text-xs text-purple-200">Join our official Telegram channel to receive ₦70,000 instantly into your balance.</p>
+        </div>
+      </div>
+
+      {!claimed ? (
+        <div className="bg-white rounded-3xl p-5 border border-purple-100 shadow-md dark:bg-gray-800 dark:border-gray-700 space-y-4">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl dark:bg-blue-900/40 dark:text-blue-400">
+                <i className="fab fa-telegram"></i>
+              </div>
+              <div>
+                <h3 className="font-bold text-gray-900 text-sm dark:text-white">Join Telegram Channel</h3>
+                <p className="text-xs text-blue-600 font-semibold dark:text-blue-400">@chix9jacom</p>
+              </div>
+            </div>
+            <span className="bg-green-100 text-green-700 font-black text-xs px-2.5 py-1 rounded-full dark:bg-green-900/40 dark:text-green-400">
+              +₦70,000
+            </span>
+          </div>
+
+          <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+            Click the button below to join our official Telegram channel <b>@chix9jacom</b>. Once verified, click claim to add <b>₦70,000</b> directly to your wallet balance!
+          </p>
+
+          <div className="space-y-2 pt-2">
+            {!hasJoined ? (
+              <button
+                onClick={handleJoinChannel}
+                disabled={verifying}
+                className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold text-xs shadow-lg flex items-center justify-center space-x-2 active:scale-95 transition-all"
+              >
+                {verifying ? (
+                  <>
+                    <i className="fas fa-circle-notch animate-spin"></i>
+                    <span>Verifying Channel Membership...</span>
+                  </>
+                ) : (
+                  <>
+                    <i className="fab fa-telegram-plane text-base"></i>
+                    <span>1. Join Telegram Channel (@chix9jacom)</span>
+                  </>
+                )}
+              </button>
+            ) : (
+              <div className="p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-xs font-semibold flex items-center space-x-2 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300">
+                <i className="fas fa-check-circle text-green-500 text-sm"></i>
+                <span>Channel join verified! Click below to claim your ₦70,000 reward.</span>
+              </div>
+            )}
+
+            <button
+              onClick={handleClaimReward}
+              disabled={!hasJoined || claiming}
+              className={`w-full h-12 rounded-xl font-bold text-xs shadow-lg flex items-center justify-center space-x-2 transition-all ${
+                hasJoined && !claiming
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:opacity-90 active:scale-95 cursor-pointer'
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-700 dark:text-gray-500'
+              }`}
+            >
+              {claiming ? (
+                <>
+                  <i className="fas fa-circle-notch animate-spin"></i>
+                  <span>Adding ₦70,000 to Balance...</span>
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-gift text-sm"></i>
+                  <span>2. Claim ₦70,000 Reward</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-md text-center dark:bg-gray-800 dark:border-gray-700 space-y-3">
+          <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl dark:bg-green-900/40 dark:text-green-400">
+            <i className="fas fa-check"></i>
+          </div>
+          <h3 className="font-bold text-gray-900 text-base dark:text-white">Reward Claimed!</h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            You have already received your ₦70,000 Telegram task reward. Check back later for new tasks!
+          </p>
+          <button
+            onClick={() => navigate('/dashboard', { state: { name, email } })}
+            className="mt-4 px-6 py-2.5 bg-purple-600 text-white text-xs font-bold rounded-xl shadow-md hover:bg-purple-700 transition-colors"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const BuyAirtimePage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -1729,8 +1890,13 @@ const DashboardPage: React.FC = () => {
   
   const wallet = useMemo(() => getWallet(email), [email]);
 
+  const taskClaimed = useMemo(() => {
+    return localStorage.getItem(`paygo_telegram_task_claimed_${email}`) === 'true';
+  }, [email, location.key]);
+
   const quickActions = [
     { id: 'payid', label: 'Buy PAY ID', icon: 'fa-credit-card', color: 'text-yellow-600', bg: 'bg-white' },
+    ...(!taskClaimed ? [{ id: 'task', label: 'Tasks', icon: 'fa-list-check', color: 'text-purple-600', bg: 'bg-white' }] : []),
     { id: 'watch', label: 'Watch', icon: 'fa-tv', color: 'text-blue-500', bg: 'bg-white' },
     { id: 'airtime', label: 'Airtime', icon: 'fa-signal', color: 'text-green-500', bg: 'bg-white' },
     { id: 'data', label: 'Data', icon: 'fa-server', color: 'text-slate-600', bg: 'bg-white' },
@@ -1743,6 +1909,8 @@ const DashboardPage: React.FC = () => {
   const handleAction = (id: string) => {
     if (id === 'payid') {
       navigate('/buy-pay-id', { state: { name, email } });
+    } else if (id === 'task') {
+      navigate('/tasks', { state: { name, email } });
     } else if (id === 'watch') {
       navigate('/watch', { state: { name, email } });
     } else if (id === 'profile') {
@@ -2045,6 +2213,7 @@ const App: React.FC = () => {
           <Route path="/watch" element={<WatchPage />} />
           <Route path="/buy-airtime" element={<BuyAirtimePage />} />
           <Route path="/buy-data" element={<BuyDataPage />} />
+          <Route path="/tasks" element={<TasksPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
         </Routes>
         <LiveWithdrawalFeed />
