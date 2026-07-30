@@ -263,7 +263,7 @@ const OnboardingWizard: React.FC = () => {
     },
     {
       title: "Get Your PAY ID",
-      text: "To withdraw funds, you'll need to purchase a PAY ID for ₦5,500. This is a one-time purchase that unlocks all features of the app.",
+      text: "To withdraw funds, you'll need to purchase a PAY ID for ₦6,500. This is a one-time purchase that unlocks all features of the app.",
       icon: <i className="fas fa-id-card text-blue-600 text-xl"></i>,
     },
     {
@@ -1045,7 +1045,7 @@ const UpgradeAccountPage: React.FC = () => {
   };
 
   const levels = [
-    { name: 'Silver', price: '₦5,500', icon: <i className="fas fa-square text-orange-400 rotate-45 text-xl"></i> },
+    { name: 'Silver', price: '₦6,500', icon: <i className="fas fa-square text-orange-400 rotate-45 text-xl"></i> },
     { name: 'Gold', price: '₦7,500', icon: <i className="fas fa-trophy text-yellow-500 text-xl"></i> },
     { name: 'Platinum', price: '₦10,000', icon: <i className="fas fa-bolt text-yellow-400 text-xl"></i> },
     { name: 'Emerald', price: '₦15,000', icon: <i className="fas fa-gem text-blue-300 text-xl"></i> },
@@ -1473,7 +1473,7 @@ const BuyPayIdPage: React.FC = () => {
               Step One: Complete Payment
             </h3>
             <p className="text-xs text-gray-500 mb-6 dark:text-gray-400">
-              Transfer exactly ₦5,500 to the management account details below to complete your payment.
+              Transfer exactly ₦6,500 to the management account details below to complete your payment.
             </p>
             <div className="bg-purple-50 rounded-2xl p-5 border border-purple-100 dark:bg-purple-900/20 dark:border-purple-900/30 space-y-4">
               <div className="flex justify-between items-center">
@@ -1584,7 +1584,7 @@ const BuyPayIdPage: React.FC = () => {
           <div className="relative">
             <input 
               readOnly 
-              value="₦5,500" 
+              value="₦6,500" 
               className="w-full h-14 px-6 bg-white rounded-2xl border border-gray-100 text-gray-500 text-sm font-medium shadow-sm outline-none dark:bg-gray-800 dark:border-gray-700"
             />
           </div>
